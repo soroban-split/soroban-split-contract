@@ -1,0 +1,27 @@
+[package]
+name = "soroban-split-contract"
+version = "0.1.0"
+edition = "2021"
+license = "MIT"
+description = "A token-splitting protocol for Stellar Soroban — Drips Wave program"
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+soroban-sdk = { version = "21.0.0", features = ["alloc"] }
+
+[dev-dependencies]
+soroban-sdk = { version = "21.0.0", features = ["testutils", "alloc"] }
+
+[profile.release]
+opt-level = "z"
+overflow-checks = true
+strip = true
+lto = true
+codegen-units = 1
+panic = "abort"
+
+[profile.release-with-logs]
+inherits = "release"
+debug-assertions = true
